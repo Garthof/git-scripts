@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Beautify changes in working directory and stage area
+git diff -U0 HEAD | clang-format-diff-3.9 -style=file -i -p1
+
+# Show diff of changes (if any)
+# -R (https://superuser.com/a/117842/493)
+# -F -X (https://superuser.com/a/106644/493)
+git diff --color=always | less -R -F -X
