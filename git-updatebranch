@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Fetch latest changes
+git fetch --prune
+
+# Reset current branch to the remote branch
+git reset --hard @{upstream}
+
+# Trash untracked files
+untracked_files=$(git ls-files --others --exclude-standard -z)
+[[ ! -z "$untracked_files" ]] && trash "$untracked_files" && echo "Trashed untracked files"
