@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
-# Beautify changes in working directory and stage area
-git diff -U0 HEAD | clang-format-diff-3.9 -style=file -i -p1
+# Get path to current repository (with slash at the end)
+path_to_repo=$(git rev-parse --show-toplevel)/
+
+# Beautify changes in working directory and stage area (git HEAD), removing the clutter (-U0),
+# and setting the correct prefixes so that clang formatter can find the files to do inline
+# modifications (-i option)
+git diff -U0 --src-prefix=$path_to_repo --dst-prefix=$path_to_repo HEAD |
+    clang-format-diff-3.9 -style=file -i
 
 # Show diff of changes (if any)
 # -R (https://superuser.com/a/117842/493)
