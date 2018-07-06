@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Get branch to compare to (usually master)
+master_branch=$1
+if [[ -z "$master_branch" ]]; then
+    echo "Usage: $0 <master_branch>"
+    exit 1
+fi
+
+if [[ ! $(git rev-parse --verify "$master_branch") ]]; then
+    echo "Invalid branch name"
+    exit 1
+fi
+
+# Get current branch and common ancestor (base)
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+current_base=$(git merge-base $current_branch $master_branch)
+
+# Run diff
+git difftool -d $current_base
