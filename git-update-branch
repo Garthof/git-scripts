@@ -6,5 +6,4 @@ git fetch --prune
 git reset --hard @{upstream}
 
 # Trash untracked files
-untracked_files=$(git ls-files --others --exclude-standard -z)
-[[ ! -z "$untracked_files" ]] && trash "$untracked_files" && echo "Trashed untracked files"
+(git ls-files --others --exclude-standard -z | xargs -0 trash) && echo "Trashed untracked files"
