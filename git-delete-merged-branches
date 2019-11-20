@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Fetch latest changes
+git fetch --prune
+
+# Find all merged branches in remote, exclude current one, delete the rest
+git branch --merged | egrep -v "^\*" | xargs --no-run-if-empty git branch -d
